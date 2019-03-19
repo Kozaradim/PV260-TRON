@@ -2,59 +2,56 @@ package cz.muni.PV260.tron;
 
 import java.awt.event.KeyEvent;
 
+import static cz.muni.PV260.tron.Direction.*;
+
 public class Player {
     private final ControlKeys controlKeys;
-    private int centrex;
-    private int centrey;
-    private int currentDirection;
+    private Position position;
+    private Direction currentDirection;
 
-    public Player(int centrex, int centrey, int currentDirection, ControlKeys controlKeys) {
-        this.centrex = centrex;
-        this.centrey = centrey;
+    public Player(Position position, Direction currentDirection, ControlKeys controlKeys) {
+        this.position = position;
         this.currentDirection = currentDirection;
         this.controlKeys = controlKeys;
     }
 
-    public int getCentrex() {
-        return centrex;
+    public Position getPosition() {
+        return position;
     }
 
-    public int getCentrey() {
-        return centrey;
-    }
 
-    public int getCurrentDirection() {
+    public Direction getCurrentDirection() {
         return currentDirection;
     }
 
     public void move(int height, int width, int moveAmount) {
         switch (currentDirection) {
-            case 0:
-                if (centrey > 0) {
-                    centrey -= moveAmount;
+            case UP:
+                if (position.y > 0) {
+                    position.up(moveAmount);
                 } else {
-                    centrey = height;
+                    position.y = height;
                 }
                 break;
-            case 1:
-                if (centrex < width) {
-                    centrex += moveAmount;
+            case RIGHT:
+                if (position.x < width) {
+                    position.right(moveAmount);
                 } else {
-                    centrex = 0;
+                    position.x = 0;
                 }
                 break;
-            case 2:
-                if (centrey < height) {
-                    centrey += moveAmount;
+            case DOWN:
+                if (position.y < height) {
+                    position.down(moveAmount);
                 } else {
-                    centrey = 0;
+                    position.y = 0;
                 }
                 break;
-            case 3:
-                if (centrex > 0) {
-                    centrex -= moveAmount;
+            case LEFT:
+                if (position.x > 0) {
+                    position.left(moveAmount);
                 } else {
-                    centrex = width;
+                    position.x = width;
                 }
                 break;
         }
@@ -63,20 +60,20 @@ public class Player {
 
     void turn(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == controlKeys.keyUp) {
-            if (currentDirection != 2) {
-                currentDirection = 0;
+            if (currentDirection != DOWN) {
+                currentDirection = UP;
             }
         } else if (keyEvent.getKeyCode() == controlKeys.keyDown) {
-            if (currentDirection != 0) {
-                currentDirection = 2;
+            if (currentDirection != UP) {
+                currentDirection = DOWN;
             }
         } else if (keyEvent.getKeyCode() == controlKeys.keyRight) {
-            if (currentDirection != 3) {
-                currentDirection = 1;
+            if (currentDirection != LEFT) {
+                currentDirection = RIGHT;
             }
         } else if (keyEvent.getKeyCode() == controlKeys.keyLeft) {
-            if (currentDirection != 1) {
-                currentDirection = 3;
+            if (currentDirection != RIGHT) {
+                currentDirection = LEFT;
             }
         }
     }

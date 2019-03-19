@@ -16,9 +16,9 @@ import static java.awt.event.KeyEvent.*;
 public class TronGame extends Core implements KeyListener, MouseListener,
         MouseMotionListener {
 
-    Player player1 = new Player(40, 40, 1,
+    Player player1 = new Player(Position.of(40, 40), Direction.RIGHT,
             new ControlKeys(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT));
-    Player player2 = new Player(600, 440, 1,
+    Player player2 = new Player(Position.of(600, 440), Direction.LEFT,
             new ControlKeys(VK_W, VK_S, VK_A, VK_D));
 
 
@@ -46,10 +46,10 @@ public class TronGame extends Core implements KeyListener, MouseListener,
         player1.move(screenManager.getHeight(), screenManager.getWidth(), moveAmount);
         player2.move(screenManager.getHeight(), screenManager.getWidth(), moveAmount);
 
-        int centrex1 = player1.getCentrex();
-        int centrey1 = player1.getCentrey();
-        int centrex2 = player2.getCentrex();
-        int centrey2 = player2.getCentrey();
+        int centrex1 = player1.getPosition().x;
+        int centrey1 = player1.getPosition().y;
+        int centrex2 = player2.getPosition().x;
+        int centrey2 = player2.getPosition().y;
 
         for (int pathx1Index = 0; pathx1Index < pathx1.size(); pathx1Index++) {
             if (((centrex1 == pathx1.get(pathx1Index)) && (centrey1 == pathy1.get(pathx1Index)))
