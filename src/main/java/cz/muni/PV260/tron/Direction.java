@@ -14,6 +14,21 @@ public enum Direction {
         put(RIGHT, LEFT);
     }};
 
+    private static Map<Direction, Direction> turnLeftMap = new HashMap<Direction, Direction>() {{
+        put(DOWN, RIGHT);
+        put(UP, LEFT);
+        put(LEFT, DOWN);
+        put(RIGHT, UP);
+    }};
+
+    private static Map<Direction, Direction> turnRightMap = new HashMap<Direction, Direction>() {{
+        put(DOWN, LEFT);
+        put(UP, RIGHT);
+        put(LEFT, UP);
+        put(RIGHT, DOWN);
+    }};
+
+
     public Direction turnToIfAllowed(Direction direction) {
         Direction forbiddenDirection = forbiddenTurnMap.get(this);
         if (forbiddenDirection == null || direction != forbiddenDirection)
@@ -21,4 +36,11 @@ public enum Direction {
         else return this;
     }
 
+    public Direction turn(Direction turnDirection) {
+        if (turnDirection == LEFT)
+            return turnLeftMap.get(this);
+        else if (turnDirection == RIGHT)
+            return turnRightMap.get(this);
+        else return null;
+    }
 }

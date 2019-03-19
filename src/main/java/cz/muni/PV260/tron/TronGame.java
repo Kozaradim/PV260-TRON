@@ -17,9 +17,11 @@ public class TronGame extends Core implements KeyListener, MouseListener,
         MouseMotionListener {
 
     Player player1 = new Player(Position.of(40, 40), Direction.RIGHT,
-            new ControlKeys(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT), Color.GREEN);
+            new ControlKeys(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT),
+            new ControlMouse(BUTTON1_DOWN_MASK, BUTTON3_DOWN_MASK),
+            Color.GREEN);
     Player player2 = new Player(Position.of(600, 440), Direction.LEFT,
-            new ControlKeys(VK_W, VK_S, VK_A, VK_D), Color.RED);
+            new ControlKeys(VK_W, VK_S, VK_A, VK_D), null, Color.RED);
 
 
 
@@ -87,16 +89,18 @@ public class TronGame extends Core implements KeyListener, MouseListener,
     }
 
     public void mouseClicked(MouseEvent mouseEvent) {
-
     }
 
     public void mouseEntered(MouseEvent mouseEvent) {
+
     }
 
     public void mouseExited(MouseEvent mouseEvent) {
     }
 
     public void mousePressed(MouseEvent mouseEvent) {
+        player1.turn(mouseEvent);
+        player2.turn(mouseEvent);
     }
 
     public void mouseReleased(MouseEvent mouseEvent) {
