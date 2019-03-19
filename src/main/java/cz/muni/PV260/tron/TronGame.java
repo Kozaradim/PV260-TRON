@@ -17,9 +17,9 @@ public class TronGame extends Core implements KeyListener, MouseListener,
         MouseMotionListener {
 
     Player player1 = new Player(Position.of(40, 40), Direction.RIGHT,
-            new ControlKeys(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT));
+            new ControlKeys(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT), Color.GREEN);
     Player player2 = new Player(Position.of(600, 440), Direction.LEFT,
-            new ControlKeys(VK_W, VK_S, VK_A, VK_D));
+            new ControlKeys(VK_W, VK_S, VK_A, VK_D), Color.RED);
 
 
 
@@ -66,9 +66,9 @@ public class TronGame extends Core implements KeyListener, MouseListener,
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, screenManager.getWidth(), screenManager.getHeight());
         for (int pathx1Index = 0; pathx1Index < pathx1.size(); pathx1Index++) {
-            graphics.setColor(Color.green);
+            graphics.setColor(player1.getColor());
             graphics.fillRect(pathx1.get(pathx1Index), pathy1.get(pathx1Index), 10, 10);
-            graphics.setColor(Color.red);
+            graphics.setColor(player2.getColor());
             graphics.fillRect(pathx2.get(pathx1Index), pathy2.get(pathx1Index), 10, 10);
         }
     }

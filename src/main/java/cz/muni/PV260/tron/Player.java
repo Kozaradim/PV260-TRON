@@ -1,27 +1,27 @@
 package cz.muni.PV260.tron;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
-
-import static cz.muni.PV260.tron.Direction.*;
 
 public class Player {
     private final ControlKeys controlKeys;
     private Position position;
     private Direction currentDirection;
+    private Color color;
 
-    public Player(Position position, Direction currentDirection, ControlKeys controlKeys) {
+    public Player(Position position, Direction currentDirection, ControlKeys controlKeys, Color color) {
         this.position = position;
         this.currentDirection = currentDirection;
         this.controlKeys = controlKeys;
+        this.color = color;
     }
 
     public Position getPosition() {
         return position;
     }
 
-
-    public Direction getCurrentDirection() {
-        return currentDirection;
+    public Color getColor() {
+        return color;
     }
 
     public void move(Position screenSize, int moveAmount) {
