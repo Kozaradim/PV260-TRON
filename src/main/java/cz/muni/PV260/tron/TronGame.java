@@ -10,14 +10,19 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
+
+import static java.awt.event.KeyEvent.*;
+
 public class TronGame extends Core implements KeyListener, MouseListener,
         MouseMotionListener {
-    int centrex1 = 40;
-    int centrey1 = 40;
-    int centrex2 = 600;
-    int centrey2 = 440;
-    int currentDirection1 = 1;
-    int currentDirection2 = 3;
+
+    Player player1 = new Player(40, 40, 1,
+            new ControlKeys(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT));
+    Player player2 = new Player(600, 440, 1,
+            new ControlKeys(VK_W, VK_S, VK_A, VK_D));
+
+
+
     int moveAmount = 5;
     ArrayList<Integer> pathx1 = new ArrayList<Integer>();
     ArrayList<Integer> pathy1 = new ArrayList<Integer>();
@@ -38,66 +43,14 @@ public class TronGame extends Core implements KeyListener, MouseListener,
     }
 
     public void draw(Graphics2D graphics) {
-        switch (currentDirection1) {
-            case 0:
-                if (centrey1 > 0) {
-                    centrey1 -= moveAmount;
-                } else {
-                    centrey1 = screenManager.getHeight();
-                }
-                break;
-            case 1:
-                if (centrex1 < screenManager.getWidth()) {
-                    centrex1 += moveAmount;
-                } else {
-                    centrex1 = 0;
-                }
-                break;
-            case 2:
-                if (centrey1 < screenManager.getHeight()) {
-                    centrey1 += moveAmount;
-                } else {
-                    centrey1 = 0;
-                }
-                break;
-            case 3:
-                if (centrex1 > 0) {
-                    centrex1 -= moveAmount;
-                } else {
-                    centrex1 = screenManager.getWidth();
-                }
-                break;
-        }
-        switch (currentDirection2) {
-            case 0:
-                if (centrey2 > 0) {
-                    centrey2 -= moveAmount;
-                } else {
-                    centrey2 = screenManager.getHeight();
-                }
-                break;
-            case 1:
-                if (centrex2 < screenManager.getWidth()) {
-                    centrex2 += moveAmount;
-                } else {
-                    centrex2 = 0;
-                }
-                break;
-            case 2:
-                if (centrey2 < screenManager.getHeight()) {
-                    centrey2 += moveAmount;
-                } else {
-                    centrey2 = 0;
-                }
-                break;
-            case 3:
-                if (centrex2 > 0) {
-                    centrex2 -= moveAmount;
-                } else {
-                    centrex2 = screenManager.getWidth();
-                }
-                break;
-        }
+        player1.move(screenManager.getHeight(), screenManager.getWidth(), moveAmount);
+        player2.move(screenManager.getHeight(), screenManager.getWidth(), moveAmount);
+
+        int centrex1 = player1.getCentrex();
+        int centrey1 = player1.getCentrey();
+        int centrex2 = player2.getCentrex();
+        int centrey2 = player2.getCentrey();
+
         for (int pathx1Index = 0; pathx1Index < pathx1.size(); pathx1Index++) {
             if (((centrex1 == pathx1.get(pathx1Index)) && (centrey1 == pathy1.get(pathx1Index)))
                     || ((centrex2 == pathx2.get(pathx1Index)) && (centrey2 == pathy2.get(pathx1Index)))
@@ -121,40 +74,8 @@ public class TronGame extends Core implements KeyListener, MouseListener,
     }
 
     public void keyPressed(KeyEvent keyEvent) {
-        if (keyEvent.getKeyCode() == KeyEvent.VK_UP) {
-            if (currentDirection1 != 2) {
-                currentDirection1 = 0;
-            }
-        } else if (keyEvent.getKeyCode() == KeyEvent.VK_DOWN) {
-            if (currentDirection1 != 0) {
-                currentDirection1 = 2;
-            }
-        } else if (keyEvent.getKeyCode() == KeyEvent.VK_RIGHT) {
-            if (currentDirection1 != 3) {
-                currentDirection1 = 1;
-            }
-        } else if (keyEvent.getKeyCode() == KeyEvent.VK_LEFT) {
-            if (currentDirection1 != 1) {
-                currentDirection1 = 3;
-            }
-        }
-        if (keyEvent.getKeyCode() == KeyEvent.VK_W) {
-            if (currentDirection2 != 2) {
-                currentDirection2 = 0;
-            }
-        } else if (keyEvent.getKeyCode() == KeyEvent.VK_S) {
-            if (currentDirection2 != 0) {
-                currentDirection2 = 2;
-            }
-        } else if (keyEvent.getKeyCode() == KeyEvent.VK_D) {
-            if (currentDirection2 != 3) {
-                currentDirection2 = 1;
-            }
-        } else if (keyEvent.getKeyCode() == KeyEvent.VK_A) {
-            if (currentDirection2 != 1) {
-                currentDirection2 = 3;
-            }
-        }
+        player1.turn(keyEvent);
+        player2.turn(keyEvent);
     }
 
     public void keyReleased(KeyEvent e) {
