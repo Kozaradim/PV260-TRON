@@ -28,32 +28,40 @@ public class Position {
         return Objects.hash(x, y);
     }
 
-    public void left(int moveAmount) {
+    public void left(int moveAmount, Position screenSize) {
         x -= moveAmount;
+        if (x < 0) x = screenSize.x;
     }
 
-    public void right(int moveAmount) {
+    public void right(int moveAmount, Position screenSize) {
         x += moveAmount;
+        if (x > screenSize.x) x = 0;
     }
 
-    public void up(int moveAmount) {
+    public void up(int moveAmount, Position screenSize) {
         y -= moveAmount;
+        if (y < 0) y = screenSize.y;
     }
 
-    public void down(int moveAmount) {
+    public void down(int moveAmount, Position screenSize) {
         y += moveAmount;
+        if (y > screenSize.y) y = 0;
     }
 
-    public void move(Direction direction, int moveAmount) {
+    public void move(Direction direction, int moveAmount, Position screenSize) {
         switch (direction) {
             case LEFT:
-                left(moveAmount);
+                left(moveAmount, screenSize);
+                break;
             case RIGHT:
-                right(moveAmount);
+                right(moveAmount, screenSize);
+                break;
             case UP:
-                up(moveAmount);
+                up(moveAmount, screenSize);
+                break;
             case DOWN:
-                down(moveAmount);
+                down(moveAmount, screenSize);
+                break;
             default:
                 throw new IllegalArgumentException("Invalid direction");
         }

@@ -43,8 +43,8 @@ public class TronGame extends Core implements KeyListener, MouseListener,
     }
 
     public void draw(Graphics2D graphics) {
-        player1.move(screenManager.getHeight(), screenManager.getWidth(), moveAmount);
-        player2.move(screenManager.getHeight(), screenManager.getWidth(), moveAmount);
+        player1.move(screenManager.getScreenSize(), moveAmount);
+        player2.move(screenManager.getScreenSize(), moveAmount);
 
         int centrex1 = player1.getPosition().x;
         int centrey1 = player1.getPosition().y;

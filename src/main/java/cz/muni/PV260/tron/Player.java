@@ -24,57 +24,14 @@ public class Player {
         return currentDirection;
     }
 
-    public void move(int height, int width, int moveAmount) {
-        switch (currentDirection) {
-            case UP:
-                if (position.y > 0) {
-                    position.up(moveAmount);
-                } else {
-                    position.y = height;
-                }
-                break;
-            case RIGHT:
-                if (position.x < width) {
-                    position.right(moveAmount);
-                } else {
-                    position.x = 0;
-                }
-                break;
-            case DOWN:
-                if (position.y < height) {
-                    position.down(moveAmount);
-                } else {
-                    position.y = 0;
-                }
-                break;
-            case LEFT:
-                if (position.x > 0) {
-                    position.left(moveAmount);
-                } else {
-                    position.x = width;
-                }
-                break;
-        }
+    public void move(Position screenSize, int moveAmount) {
+        position.move(currentDirection, moveAmount, screenSize);
     }
 
 
     void turn(KeyEvent keyEvent) {
-        if (keyEvent.getKeyCode() == controlKeys.keyUp) {
-            if (currentDirection != DOWN) {
-                currentDirection = UP;
-            }
-        } else if (keyEvent.getKeyCode() == controlKeys.keyDown) {
-            if (currentDirection != UP) {
-                currentDirection = DOWN;
-            }
-        } else if (keyEvent.getKeyCode() == controlKeys.keyRight) {
-            if (currentDirection != LEFT) {
-                currentDirection = RIGHT;
-            }
-        } else if (keyEvent.getKeyCode() == controlKeys.keyLeft) {
-            if (currentDirection != RIGHT) {
-                currentDirection = LEFT;
-            }
-        }
+        Direction newDirection = controlKeys.getDirection(keyEvent.getKeyCode());
+        if (newDirection != null)
+            currentDirection = currentDirection.turnToIfAllowed(newDirection);
     }
 }
