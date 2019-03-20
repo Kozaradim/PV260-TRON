@@ -3,6 +3,8 @@ package cz.muni.PV260.tron;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     private final ControlKeys controlKeys;
@@ -10,6 +12,7 @@ public class Player {
     private Position position;
     private Direction currentDirection;
     private Color color;
+    private final List<Position> path = new ArrayList();
 
     public Player(Position position, Direction currentDirection, ControlKeys controlKeys, ControlMouse controlMouse, Color color) {
         this.position = position;
@@ -17,6 +20,7 @@ public class Player {
         this.controlKeys = controlKeys;
         this.controlMouse = controlMouse;
         this.color = color;
+        this.path.add(position);
     }
 
     public Position getPosition() {
@@ -27,8 +31,14 @@ public class Player {
         return color;
     }
 
+    public List<Position> getPath() {
+        return path;
+    }
+
     public void move(Position screenSize, int moveAmount) {
-        position.move(currentDirection, moveAmount, screenSize);
+
+        position = position.move(currentDirection, moveAmount, screenSize);
+        path.add(position);
     }
 
 

@@ -3,7 +3,7 @@ package cz.muni.PV260.tron;
 import java.util.Objects;
 
 public class Position {
-    int x, y;
+    final int x, y;
 
     private Position(int x, int y) {
         this.x = x;
@@ -28,40 +28,40 @@ public class Position {
         return Objects.hash(x, y);
     }
 
-    public void left(int moveAmount, Position screenSize) {
-        x -= moveAmount;
-        if (x < 0) x = screenSize.x;
+    public Position left(int moveAmount, Position screenSize) {
+        int newX = this.x - moveAmount;
+        if (newX < 0) newX = screenSize.x;
+        return Position.of(newX, this.y);
     }
 
-    public void right(int moveAmount, Position screenSize) {
-        x += moveAmount;
-        if (x > screenSize.x) x = 0;
+    public Position right(int moveAmount, Position screenSize) {
+        int newX = this.x + moveAmount;
+        if (newX > screenSize.x) newX = 0;
+        return Position.of(newX, this.y);
     }
 
-    public void up(int moveAmount, Position screenSize) {
-        y -= moveAmount;
-        if (y < 0) y = screenSize.y;
+    public Position up(int moveAmount, Position screenSize) {
+        int newY = y - moveAmount;
+        if (newY < 0) newY = screenSize.y;
+        return Position.of(this.x, newY);
     }
 
-    public void down(int moveAmount, Position screenSize) {
-        y += moveAmount;
-        if (y > screenSize.y) y = 0;
+    public Position down(int moveAmount, Position screenSize) {
+        int newY = this.y + moveAmount;
+        if (newY > screenSize.y) newY = 0;
+        return Position.of(this.x, newY);
     }
 
-    public void move(Direction direction, int moveAmount, Position screenSize) {
+    public Position move(Direction direction, int moveAmount, Position screenSize) {
         switch (direction) {
             case LEFT:
-                left(moveAmount, screenSize);
-                break;
+                return left(moveAmount, screenSize);
             case RIGHT:
-                right(moveAmount, screenSize);
-                break;
+                return right(moveAmount, screenSize);
             case UP:
-                up(moveAmount, screenSize);
-                break;
+                return up(moveAmount, screenSize);
             case DOWN:
-                down(moveAmount, screenSize);
-                break;
+                return down(moveAmount, screenSize);
             default:
                 throw new IllegalArgumentException("Invalid direction");
         }

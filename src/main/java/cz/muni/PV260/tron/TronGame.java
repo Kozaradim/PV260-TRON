@@ -24,12 +24,7 @@ public class TronGame extends Core implements KeyListener, MouseListener,
             new ControlKeys(VK_W, VK_S, VK_A, VK_D), null, Color.RED);
 
 
-
     int moveAmount = 5;
-    ArrayList<Integer> pathx1 = new ArrayList<Integer>();
-    ArrayList<Integer> pathy1 = new ArrayList<Integer>();
-    ArrayList<Integer> pathx2 = new ArrayList<Integer>();
-    ArrayList<Integer> pathy2 = new ArrayList<Integer>();
 
     public static void main(String[] args) {
         new TronGame().run();
@@ -48,30 +43,22 @@ public class TronGame extends Core implements KeyListener, MouseListener,
         player1.move(screenManager.getScreenSize(), moveAmount);
         player2.move(screenManager.getScreenSize(), moveAmount);
 
-        int centrex1 = player1.getPosition().x;
-        int centrey1 = player1.getPosition().y;
-        int centrex2 = player2.getPosition().x;
-        int centrey2 = player2.getPosition().y;
+        if (player1.getPath().subList(0, player1.getPath().size() - 1).contains(player1.getPosition())
+                || player1.getPath().contains(player2.getPosition())
+                || player2.getPath().subList(0, player2.getPath().size() - 1).contains(player2.getPosition())
+                || player2.getPath().contains(player1.getPosition()))
+            System.exit(0);
 
-        for (int pathx1Index = 0; pathx1Index < pathx1.size(); pathx1Index++) {
-            if (((centrex1 == pathx1.get(pathx1Index)) && (centrey1 == pathy1.get(pathx1Index)))
-                    || ((centrex2 == pathx2.get(pathx1Index)) && (centrey2 == pathy2.get(pathx1Index)))
-                    || ((centrex1 == pathx2.get(pathx1Index)) && (centrey1 == pathy2.get(pathx1Index)))
-                    || ((centrex2 == pathx1.get(pathx1Index)) && (centrey2 == pathy1.get(pathx1Index)))) {
-                System.exit(0);
-            }
-        }
-        pathx1.add(centrex1);
-        pathy1.add(centrey1);
-        pathx2.add(centrex2);
-        pathy2.add(centrey2);
+
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, screenManager.getWidth(), screenManager.getHeight());
-        for (int pathx1Index = 0; pathx1Index < pathx1.size(); pathx1Index++) {
+        for (int pathx1Index = 0; pathx1Index < player1.getPath().size(); pathx1Index++) {
             graphics.setColor(player1.getColor());
-            graphics.fillRect(pathx1.get(pathx1Index), pathy1.get(pathx1Index), 10, 10);
+            Position position1 = player1.getPath().get(pathx1Index);
+            graphics.fillRect(position1.x, position1.y, 10, 10);
+            Position position2 = player2.getPath().get(pathx1Index);
             graphics.setColor(player2.getColor());
-            graphics.fillRect(pathx2.get(pathx1Index), pathy2.get(pathx1Index), 10, 10);
+            graphics.fillRect(position2.x, position2.y, 10, 10);
         }
     }
 
