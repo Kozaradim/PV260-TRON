@@ -8,7 +8,20 @@ import javax.swing.JFrame;
 
 public class ScreenManager {
 
+    private static final DisplayMode[] modes =
+            {
+                    new DisplayMode(1920, 1080, 32, 0),
+                    new DisplayMode(1680, 1050, 32, 0),
+                    new DisplayMode(1280, 1024, 32, 0),
+                    new DisplayMode(800, 600, 32, 0),
+                    new DisplayMode(800, 600, 24, 0),
+                    new DisplayMode(800, 600, 16, 0),
+                    new DisplayMode(640, 480, 32, 0),
+                    new DisplayMode(640, 480, 24, 0),
+                    new DisplayMode(640, 480, 16, 0),
+            };
     private GraphicsDevice graphicsDevice;
+    private Window window;
 
     public ScreenManager() {
         GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -29,13 +42,18 @@ public class ScreenManager {
     }
 
     public boolean displayModesMatch(DisplayMode displayMode1, DisplayMode displayMode2) {
-        if (displayMode1.getWidth() != displayMode2.getWidth() || displayMode1.getHeight() != displayMode2.getHeight()) {
+        if (displayMode1.getWidth() != displayMode2.getWidth()
+                || displayMode1.getHeight() != displayMode2.getHeight()) {
             return false;
         }
-        if (displayMode1.getBitDepth() != DisplayMode.BIT_DEPTH_MULTI && displayMode2.getBitDepth() != DisplayMode.BIT_DEPTH_MULTI && displayMode1.getBitDepth() != displayMode2.getBitDepth()) {
+        if (displayMode1.getBitDepth() != DisplayMode.BIT_DEPTH_MULTI
+                && displayMode2.getBitDepth() != DisplayMode.BIT_DEPTH_MULTI
+                && displayMode1.getBitDepth() != displayMode2.getBitDepth()) {
             return false;
         }
-        return displayMode1.getRefreshRate() == DisplayMode.REFRESH_RATE_UNKNOWN || displayMode2.getRefreshRate() == DisplayMode.REFRESH_RATE_UNKNOWN || displayMode1.getRefreshRate() == displayMode2.getRefreshRate();
+        return displayMode1.getRefreshRate() == DisplayMode.REFRESH_RATE_UNKNOWN
+                || displayMode2.getRefreshRate() == DisplayMode.REFRESH_RATE_UNKNOWN
+                || displayMode1.getRefreshRate() == displayMode2.getRefreshRate();
     }
 
     public void setFullScreen(DisplayMode displayMode) {
@@ -44,6 +62,7 @@ public class ScreenManager {
         frame.setIgnoreRepaint(true);
         frame.setResizable(false);
         graphicsDevice.setFullScreenWindow(frame);
+        graphicsDevice.setDisplayMode(displayMode);
 
         if (displayMode != null && graphicsDevice.isDisplayChangeSupported()) {
             try {
@@ -55,45 +74,15 @@ public class ScreenManager {
     }
 
     public Graphics2D getGraphics() {
-        Window window = graphicsDevice.getFullScreenWindow();
-        if (window != null) {
-            BufferStrategy bs = window.getBufferStrategy();
-            return (Graphics2D) bs.getDrawGraphics();
-        } else {
-            return null;
-        }
+        return (Graphics2D) window.getBufferStrategy().getDrawGraphics();
     }
 
     public void update() {
-        Window window = graphicsDevice.getFullScreenWindow();
-        if (window != null) {
-            BufferStrategy bufferStrategy = window.getBufferStrategy();
-            if (!bufferStrategy.contentsLost()) {
-                bufferStrategy.show();
-            }
-        }
+        window.getBufferStrategy().show();
     }
 
     public Window getFullScreenWindow() {
         return graphicsDevice.getFullScreenWindow();
-    }
-
-    public int getWidth() {
-        Window window = graphicsDevice.getFullScreenWindow();
-        if (window != null) {
-            return window.getWidth();
-        } else {
-            return 0;
-        }
-    }
-
-    public int getHeight() {
-        Window window = graphicsDevice.getFullScreenWindow();
-        if (window != null) {
-            return window.getHeight();
-        } else {
-            return 0;
-        }
     }
 
     public void restoreScreen() {
@@ -105,7 +94,13 @@ public class ScreenManager {
     }
 
     public Position getScreenSize() {
-        return Position.of(getWidth(), getHeight());
+
+        return Position.of(window.getWidth(), window.getHeight());
     }
 
+    void init() {
+        DisplayMode displayMode = findFirstCompatibaleMode(modes);
+        setFullScreen(displayMode);
+        window = getFullScreenWindow();
+    }
 }
