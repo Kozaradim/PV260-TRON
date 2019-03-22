@@ -8,7 +8,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
 
 
 import static java.awt.event.KeyEvent.*;
@@ -24,7 +23,8 @@ public class TronGame extends Core implements KeyListener, MouseListener,
             new ControlKeys(VK_W, VK_S, VK_A, VK_D), null, Color.RED);
 
 
-    int moveAmount = 5;
+    private final int MOVE_AMOUNT = 5;
+    GameBoard gameBoard;
 
     public static void main(String[] args) {
         new TronGame().run();
@@ -32,6 +32,7 @@ public class TronGame extends Core implements KeyListener, MouseListener,
 
     public void init() {
         super.init();
+        gameBoard = new GameBoard(screenManager.getScreenSize(), MOVE_AMOUNT);
 
         Window window = screenManager.getFullScreenWindow();
         window.addKeyListener(this);
@@ -40,8 +41,8 @@ public class TronGame extends Core implements KeyListener, MouseListener,
     }
 
     public void draw(Graphics2D graphics) {
-        player1.move(screenManager.getScreenSize(), moveAmount);
-        player2.move(screenManager.getScreenSize(), moveAmount);
+        player1.move(gameBoard);
+        player2.move(gameBoard);
 
         if (player1.getPath().subList(0, player1.getPath().size() - 1).contains(player1.getPosition())
                 || player1.getPath().contains(player2.getPosition())

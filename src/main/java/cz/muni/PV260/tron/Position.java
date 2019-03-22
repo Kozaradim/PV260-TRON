@@ -28,40 +28,32 @@ public class Position {
         return Objects.hash(x, y);
     }
 
-    public Position left(int moveAmount, Position screenSize) {
-        int newX = this.x - moveAmount;
-        if (newX < 0) newX = screenSize.x;
-        return Position.of(newX, this.y);
+    public Position left(int moveAmount) {
+        return Position.of(this.x - moveAmount, this.y);
     }
 
-    public Position right(int moveAmount, Position screenSize) {
-        int newX = this.x + moveAmount;
-        if (newX > screenSize.x) newX = 0;
-        return Position.of(newX, this.y);
+    public Position right(int moveAmount) {
+        return Position.of(this.x + moveAmount, this.y);
     }
 
-    public Position up(int moveAmount, Position screenSize) {
-        int newY = y - moveAmount;
-        if (newY < 0) newY = screenSize.y;
-        return Position.of(this.x, newY);
+    public Position up(int moveAmount) {
+        return Position.of(this.x, y - moveAmount);
     }
 
-    public Position down(int moveAmount, Position screenSize) {
-        int newY = this.y + moveAmount;
-        if (newY > screenSize.y) newY = 0;
-        return Position.of(this.x, newY);
+    public Position down(int moveAmount) {
+        return Position.of(this.x, this.y + moveAmount);
     }
 
-    public Position move(Direction direction, int moveAmount, Position screenSize) {
+    public Position move(Direction direction, int moveAmount) {
         switch (direction) {
             case LEFT:
-                return left(moveAmount, screenSize);
+                return left(moveAmount);
             case RIGHT:
-                return right(moveAmount, screenSize);
+                return right(moveAmount);
             case UP:
-                return up(moveAmount, screenSize);
+                return up(moveAmount);
             case DOWN:
-                return down(moveAmount, screenSize);
+                return down(moveAmount);
             default:
                 throw new IllegalArgumentException("Invalid direction");
         }

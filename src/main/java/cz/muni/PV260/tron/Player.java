@@ -35,9 +35,9 @@ public class Player {
         return path;
     }
 
-    public void move(Position screenSize, int moveAmount) {
+    public void move(GameBoard gameBoard) {
 
-        position = position.move(currentDirection, moveAmount, screenSize);
+        position = gameBoard.move(position, currentDirection);
         path.add(position);
     }
 
