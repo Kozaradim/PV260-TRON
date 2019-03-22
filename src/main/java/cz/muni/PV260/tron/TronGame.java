@@ -18,6 +18,7 @@ public class TronGame extends Core implements KeyListener, MouseListener,
         MouseMotionListener {
 
     private final List<Player> players = new ArrayList<>();
+    private final CollisionDetector collisionDetector = new CollisionDetector();
 
 
     Player player1 = new Player(Position.of(40, 40), Direction.RIGHT,
@@ -66,10 +67,8 @@ public class TronGame extends Core implements KeyListener, MouseListener,
     @Override
     public void update() {
         move();
-        if (player1.getPath().subList(0, player1.getPath().size() - 1).contains(player1.getPosition())
-                || player1.getPath().contains(player2.getPosition())
-                || player2.getPath().subList(0, player2.getPath().size() - 1).contains(player2.getPosition())
-                || player2.getPath().contains(player1.getPosition()))
+        List<Collision> collisions = collisionDetector.findAllCollisions(players);
+        if (!collisions.isEmpty())
             System.exit(0);
         addPositionToPath();
 
@@ -87,8 +86,8 @@ public class TronGame extends Core implements KeyListener, MouseListener,
         }
     }
 
-    public void draw(Graphics2D graphics) {
 
+    public void draw(Graphics2D graphics) {
 
 
         graphics.setColor(Color.BLACK);
