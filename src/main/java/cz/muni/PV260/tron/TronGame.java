@@ -75,15 +75,11 @@ public class TronGame extends Core implements KeyListener, MouseListener,
     }
 
     private void addPositionToPath() {
-        for (Player player : players) {
-            player.addPositionToPath();
-        }
+        players.forEach(Player::addPositionToPath);
     }
 
     private void move() {
-        for (Player player : players) {
-            player.move(gameBoard);
-        }
+        players.forEach(player -> player.move(gameBoard));
     }
 
 
@@ -103,8 +99,11 @@ public class TronGame extends Core implements KeyListener, MouseListener,
     }
 
     public void keyPressed(KeyEvent keyEvent) {
-        player1.turn(keyEvent);
-        player2.turn(keyEvent);
+        turn(keyEvent);
+    }
+
+    private void turn(KeyEvent keyEvent) {
+        players.forEach(player -> player.turn(keyEvent));
     }
 
     public void keyReleased(KeyEvent e) {
@@ -126,8 +125,11 @@ public class TronGame extends Core implements KeyListener, MouseListener,
     }
 
     public void mousePressed(MouseEvent mouseEvent) {
-        player1.turn(mouseEvent);
-        player2.turn(mouseEvent);
+        turn(mouseEvent);
+    }
+
+    private void turn(MouseEvent mouseEvent) {
+        players.forEach(player -> player.turn(mouseEvent));
     }
 
     public void mouseReleased(MouseEvent mouseEvent) {

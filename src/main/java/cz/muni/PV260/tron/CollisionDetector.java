@@ -2,24 +2,24 @@ package cz.muni.PV260.tron;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class CollisionDetector {
     public List<Collision> findAllCollisions(List<Player> players) {
         List<Collision> collisions = new ArrayList<>();
-        for (Player player : players) {
-            collisions.addAll(findCollisions(player, players));
-        }
+        players.stream()
+                .map(player -> findCollisions(player, players))
+                .forEach(collisions::addAll);
         return collisions;
     }
 
     private List<Collision> findCollisions(Player player, List<Player> players) {
-        List<Collision> collisions = new ArrayList<>();
-        for (Player otherPlayer : players) {
-            Collision collision = findCollision(player, otherPlayer);
-            if (collision != null)
-                collisions.add(collision);
-        }
-        return collisions;
+        return players
+                .stream()
+                .map(otherPlayer -> findCollision(player, otherPlayer))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
     private Collision findCollision(Player player, Player otherPlayer) {
