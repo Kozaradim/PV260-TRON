@@ -38,6 +38,9 @@ public class Player {
     public void move(GameBoard gameBoard) {
 
         position = gameBoard.move(position, currentDirection);
+    }
+
+    public void addPositionToPath() {
         path.add(position);
     }
 

@@ -8,12 +8,17 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 
 import static java.awt.event.KeyEvent.*;
 
 public class TronGame extends Core implements KeyListener, MouseListener,
         MouseMotionListener {
+
+    private final List<Player> players = new ArrayList<>();
+
 
     Player player1 = new Player(Position.of(40, 40), Direction.RIGHT,
             new ControlKeys(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT),
@@ -26,13 +31,31 @@ public class TronGame extends Core implements KeyListener, MouseListener,
     private final int MOVE_AMOUNT = 5;
     GameBoard gameBoard;
 
+
     public static void main(String[] args) {
-        new TronGame().run();
+        TronGame tronGame = new TronGame();
+
+        Player player1 = new Player(Position.of(40, 40), Direction.RIGHT,
+                new ControlKeys(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT),
+                new ControlMouse(BUTTON1_DOWN_MASK, BUTTON3_DOWN_MASK),
+                Color.GREEN);
+        tronGame.addPlayer(player1);
+        Player player2 = new Player(Position.of(600, 440), Direction.LEFT,
+                new ControlKeys(VK_W, VK_S, VK_A, VK_D), null, Color.RED);
+        tronGame.addPlayer(player2);
+        tronGame.run();
+    }
+
+    public void addPlayer(Player player) {
+        this.players.add(player);
     }
 
     public void init() {
         super.init();
         gameBoard = new GameBoard(screenManager.getScreenSize(), MOVE_AMOUNT);
+        player1 = players.get(0);
+        player2 = players.get(1);
+
 
         Window window = screenManager.getFullScreenWindow();
         window.addKeyListener(this);
@@ -40,15 +63,32 @@ public class TronGame extends Core implements KeyListener, MouseListener,
         window.addMouseMotionListener(this);
     }
 
-    public void draw(Graphics2D graphics) {
-        player1.move(gameBoard);
-        player2.move(gameBoard);
-
+    @Override
+    public void update() {
+        move();
         if (player1.getPath().subList(0, player1.getPath().size() - 1).contains(player1.getPosition())
                 || player1.getPath().contains(player2.getPosition())
                 || player2.getPath().subList(0, player2.getPath().size() - 1).contains(player2.getPosition())
                 || player2.getPath().contains(player1.getPosition()))
             System.exit(0);
+        addPositionToPath();
+
+    }
+
+    private void addPositionToPath() {
+        for (Player player : players) {
+            player.addPositionToPath();
+        }
+    }
+
+    private void move() {
+        for (Player player : players) {
+            player.move(gameBoard);
+        }
+    }
+
+    public void draw(Graphics2D graphics) {
+
 
 
         graphics.setColor(Color.BLACK);
