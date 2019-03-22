@@ -1,21 +1,17 @@
 package cz.muni.PV260.tron;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Window;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import cz.muni.PV260.tron.controls.KeyControl;
+import cz.muni.PV260.tron.controls.KeyDirections;
+import cz.muni.PV260.tron.controls.MouseControl;
+import cz.muni.PV260.tron.controls.MouseDirections;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import static java.awt.event.KeyEvent.*;
 
-public class TronGame extends Core implements KeyListener, MouseListener,
-        MouseMotionListener {
+public class TronGame extends Core {
 
     private final List<Player> players = new ArrayList<>();
     private final CollisionDetector collisionDetector = new CollisionDetector();
@@ -28,14 +24,26 @@ public class TronGame extends Core implements KeyListener, MouseListener,
     public static void main(String[] args) {
         TronGame tronGame = new TronGame();
 
-        Player player1 = new Player(Position.of(40, 40), Direction.RIGHT,
-                new ControlKeys(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT),
-                new ControlMouse(BUTTON1_DOWN_MASK, BUTTON3_DOWN_MASK),
+
+        Player player1 = new Player(Position.of(40, 40),
+                new KeyControl(
+                        new KeyDirections(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT),
+                        Direction.RIGHT),
                 Color.GREEN);
         tronGame.addPlayer(player1);
-        Player player2 = new Player(Position.of(600, 440), Direction.LEFT,
-                new ControlKeys(VK_W, VK_S, VK_A, VK_D), null, Color.RED);
+
+
+        Player player2 = new Player(Position.of(600, 440),
+                new KeyControl(
+                        new KeyDirections(VK_W, VK_S, VK_A, VK_D), Direction.LEFT), Color.RED);
         tronGame.addPlayer(player2);
+
+        Player player3 = new Player(Position.of(80, 900),
+                new MouseControl(new MouseDirections(BUTTON1_DOWN_MASK, BUTTON3_DOWN_MASK),
+                        Direction.RIGHT),
+                Color.BLUE);
+        tronGame.addPlayer(player3);
+
         tronGame.run();
     }
 
@@ -50,9 +58,11 @@ public class TronGame extends Core implements KeyListener, MouseListener,
 
 
         Window window = screenManager.getFullScreenWindow();
-        window.addKeyListener(this);
-        window.addMouseListener(this);
-        window.addMouseMotionListener(this);
+        addListeners(window);
+    }
+
+    private void addListeners(Component window) {
+        players.forEach(player -> player.getControl().addListener(window));
     }
 
     @Override
@@ -73,7 +83,6 @@ public class TronGame extends Core implements KeyListener, MouseListener,
         players.forEach(player -> player.move(gameBoard));
     }
 
-
     public void draw(Graphics2D graphics) {
 
         renderer.renderBackground(gameBoard);
@@ -82,50 +91,5 @@ public class TronGame extends Core implements KeyListener, MouseListener,
 
     private void renderPlayers(List<Player> players) {
         players.forEach(player -> renderer.renderPlayer(player));
-    }
-
-    public void keyPressed(KeyEvent keyEvent) {
-        turn(keyEvent);
-    }
-
-    private void turn(KeyEvent keyEvent) {
-        players.forEach(player -> player.turn(keyEvent));
-    }
-
-    public void keyReleased(KeyEvent e) {
-
-    }
-
-    public void keyTyped(KeyEvent keyEvent) {
-
-    }
-
-    public void mouseClicked(MouseEvent mouseEvent) {
-    }
-
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
-
-    public void mouseExited(MouseEvent mouseEvent) {
-    }
-
-    public void mousePressed(MouseEvent mouseEvent) {
-        turn(mouseEvent);
-    }
-
-    private void turn(MouseEvent mouseEvent) {
-        players.forEach(player -> player.turn(mouseEvent));
-    }
-
-    public void mouseReleased(MouseEvent mouseEvent) {
-    }
-
-    public void mouseDragged(MouseEvent mouseEvent) {
-
-    }
-
-    public void mouseMoved(MouseEvent mouseEvent) {
-
     }
 }

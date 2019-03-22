@@ -1,13 +1,15 @@
-package cz.muni.PV260.tron;
+package cz.muni.PV260.tron.controls;
+
+import cz.muni.PV260.tron.Direction;
 
 import static cz.muni.PV260.tron.Direction.LEFT;
 import static cz.muni.PV260.tron.Direction.RIGHT;
 
-public class ControlMouse {
+public class MouseDirections {
     final int mouseLeft;
     final int mouseRight;
 
-    public ControlMouse(int mouseLeft, int mouseRight) {
+    public MouseDirections(int mouseLeft, int mouseRight) {
         this.mouseLeft = mouseLeft;
         this.mouseRight = mouseRight;
     }

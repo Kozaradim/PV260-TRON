@@ -1,18 +1,20 @@
-package cz.muni.PV260.tron;
+package cz.muni.PV260.tron.controls;
+
+import cz.muni.PV260.tron.Direction;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static cz.muni.PV260.tron.Direction.*;
 
-public class ControlKeys {
+public class KeyDirections {
     final int keyUp;
     final int keyDown;
     final int keyLeft;
     final int keyRight;
     private final Map<Integer, Direction> directionMap = new HashMap<>();
 
-    public ControlKeys(int keyUp, int keyDown, int keyLeft, int keyRight) {
+    public KeyDirections(int keyUp, int keyDown, int keyLeft, int keyRight) {
         this.keyUp = keyUp;
         this.keyDown = keyDown;
         this.keyLeft = keyLeft;
