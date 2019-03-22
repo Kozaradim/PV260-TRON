@@ -19,15 +19,7 @@ public class TronGame extends Core implements KeyListener, MouseListener,
 
     private final List<Player> players = new ArrayList<>();
     private final CollisionDetector collisionDetector = new CollisionDetector();
-
-
-    Player player1 = new Player(Position.of(40, 40), Direction.RIGHT,
-            new ControlKeys(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT),
-            new ControlMouse(BUTTON1_DOWN_MASK, BUTTON3_DOWN_MASK),
-            Color.GREEN);
-    Player player2 = new Player(Position.of(600, 440), Direction.LEFT,
-            new ControlKeys(VK_W, VK_S, VK_A, VK_D), null, Color.RED);
-
+    private Renderer renderer;
 
     private final int MOVE_AMOUNT = 5;
     GameBoard gameBoard;
@@ -53,9 +45,8 @@ public class TronGame extends Core implements KeyListener, MouseListener,
 
     public void init() {
         super.init();
-        gameBoard = new GameBoard(screenManager.getScreenSize(), MOVE_AMOUNT);
-        player1 = players.get(0);
-        player2 = players.get(1);
+        gameBoard = new GameBoard(screenManager.getScreenSize(), Color.BLACK, MOVE_AMOUNT);
+        renderer = new Renderer(screenManager.getGraphics());
 
 
         Window window = screenManager.getFullScreenWindow();
@@ -85,17 +76,12 @@ public class TronGame extends Core implements KeyListener, MouseListener,
 
     public void draw(Graphics2D graphics) {
 
+        renderer.renderBackground(gameBoard);
+        renderPlayers(players);
+    }
 
-        graphics.setColor(Color.BLACK);
-        graphics.fillRect(0, 0, screenManager.getWidth(), screenManager.getHeight());
-        for (int pathx1Index = 0; pathx1Index < player1.getPath().size(); pathx1Index++) {
-            graphics.setColor(player1.getColor());
-            Position position1 = player1.getPath().get(pathx1Index);
-            graphics.fillRect(position1.x, position1.y, 10, 10);
-            Position position2 = player2.getPath().get(pathx1Index);
-            graphics.setColor(player2.getColor());
-            graphics.fillRect(position2.x, position2.y, 10, 10);
-        }
+    private void renderPlayers(List<Player> players) {
+        players.forEach(player -> renderer.renderPlayer(player));
     }
 
     public void keyPressed(KeyEvent keyEvent) {

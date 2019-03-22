@@ -1,12 +1,24 @@
 package cz.muni.PV260.tron;
 
+import java.awt.*;
+
 public class GameBoard {
     private final Position dimension;
+    private Color backgroundColor;
     private int moveAmount;
 
-    public GameBoard(Position dimension, int moveAmount) {
+    public GameBoard(Position dimension, Color backgroundColor, int moveAmount) {
         this.dimension = dimension;
+        this.backgroundColor = backgroundColor;
         this.moveAmount = moveAmount;
+    }
+
+    public Position getDimension() {
+        return dimension;
+    }
+
+    public Color getBackgroundColor() {
+        return backgroundColor;
     }
 
     public Position move(Position position, Direction direction) {
