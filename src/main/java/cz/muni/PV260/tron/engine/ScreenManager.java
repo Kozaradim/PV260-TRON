@@ -1,8 +1,8 @@
-package cz.muni.PV260.tron;
+package cz.muni.PV260.tron.engine;
+
+import cz.muni.PV260.tron.model.Position;
 
 import java.awt.*;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
@@ -78,6 +78,8 @@ public class ScreenManager {
     }
 
     public void update() {
+//        restoreScreen();
+        getGraphics().dispose();
         window.getBufferStrategy().show();
     }
 

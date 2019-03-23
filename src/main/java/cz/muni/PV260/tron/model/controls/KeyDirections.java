@@ -1,11 +1,11 @@
-package cz.muni.PV260.tron.controls;
+package cz.muni.PV260.tron.model.controls;
 
-import cz.muni.PV260.tron.Direction;
+import cz.muni.PV260.tron.model.Direction;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static cz.muni.PV260.tron.Direction.*;
+import static cz.muni.PV260.tron.model.Direction.*;
 
 public class KeyDirections {
     final int keyUp;

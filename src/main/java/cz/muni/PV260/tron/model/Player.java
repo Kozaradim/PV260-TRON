@@ -1,11 +1,8 @@
-package cz.muni.PV260.tron;
+package cz.muni.PV260.tron.model;
 
-import cz.muni.PV260.tron.controls.Control;
-import cz.muni.PV260.tron.controls.KeyControl;
-import cz.muni.PV260.tron.controls.MouseControl;
+import cz.muni.PV260.tron.model.controls.Control;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 

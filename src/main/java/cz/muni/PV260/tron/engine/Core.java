@@ -1,4 +1,4 @@
-package cz.muni.PV260.tron;
+package cz.muni.PV260.tron.engine;
 
 import java.awt.*;
 
@@ -6,6 +6,10 @@ public abstract class Core {
 
 	private boolean running;
     protected ScreenManager screenManager;
+
+	public ScreenManager getScreenManager() {
+		return screenManager;
+	}
 
 	public void run(){
 		try{
@@ -30,9 +34,7 @@ public abstract class Core {
 			long timePassed = System.currentTimeMillis()-cumTime;
 			cumTime+= timePassed;
 			update();
-            Graphics2D graphics = screenManager.getGraphics();
-            draw(graphics);
-            graphics.dispose();
+            draw();
             screenManager.update();
 			
 			try{
@@ -44,6 +46,6 @@ public abstract class Core {
 	public void update() {
 	}
 
-    public abstract void draw(Graphics2D graphics);
+    public abstract void draw();
 	
 }

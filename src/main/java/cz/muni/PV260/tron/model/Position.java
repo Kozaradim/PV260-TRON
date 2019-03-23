@@ -1,9 +1,9 @@
-package cz.muni.PV260.tron;
+package cz.muni.PV260.tron.model;
 
 import java.util.Objects;
 
 public class Position {
-    final int x, y;
+    private final int x, y;
 
     private Position(int x, int y) {
         this.x = x;
@@ -12,6 +12,14 @@ public class Position {
 
     public static Position of(int x, int y) {
         return new Position(x, y);
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     @Override

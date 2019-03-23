@@ -1,4 +1,4 @@
-package cz.muni.PV260.tron;
+package cz.muni.PV260.tron.model;
 
 import java.awt.*;
 
@@ -27,12 +27,12 @@ public class GameBoard {
     }
 
     private Position fixPosition(Position position) {
-        int x = position.x;
-        int y = position.y;
-        if (x < 0) x = dimension.x;
-        if (x > dimension.x) x = 0;
-        if (y < 0) y = dimension.y;
-        if (y > dimension.y) y = 0;
+        int x = position.getX();
+        int y = position.getY();
+        if (x < 0) x = dimension.getX();
+        if (x > dimension.getX()) x = 0;
+        if (y < 0) y = dimension.getY();
+        if (y > dimension.getY()) y = 0;
         return Position.of(x, y);
     }
 

@@ -1,4 +1,4 @@
-package cz.muni.PV260.tron;
+package cz.muni.PV260.tron.model;
 
 public class Collision {
     private final Player player;

@@ -1,6 +1,6 @@
-package cz.muni.PV260.tron.controls;
+package cz.muni.PV260.tron.model.controls;
 
-import cz.muni.PV260.tron.Direction;
+import cz.muni.PV260.tron.model.Direction;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
