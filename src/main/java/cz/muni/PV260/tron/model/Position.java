@@ -36,19 +36,19 @@ public class Position {
         return Objects.hash(x, y);
     }
 
-    public Position left(int moveAmount) {
+    private Position left(int moveAmount) {
         return Position.of(this.x - moveAmount, this.y);
     }
 
-    public Position right(int moveAmount) {
+    private Position right(int moveAmount) {
         return Position.of(this.x + moveAmount, this.y);
     }
 
-    public Position up(int moveAmount) {
+    private Position up(int moveAmount) {
         return Position.of(this.x, y - moveAmount);
     }
 
-    public Position down(int moveAmount) {
+    private Position down(int moveAmount) {
         return Position.of(this.x, this.y + moveAmount);
     }
 

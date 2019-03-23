@@ -51,7 +51,7 @@ public class MouseControl implements Control, MouseListener {
 
     }
 
-    void turn(MouseEvent mouseEvent) {
+    private void turn(MouseEvent mouseEvent) {
         Direction turnDirection = mouseDirections.getDirection(mouseEvent.getModifiersEx());
         if (turnDirection == null) return;
         direction = direction.turn(turnDirection);

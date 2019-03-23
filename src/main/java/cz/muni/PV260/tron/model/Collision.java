@@ -2,18 +2,18 @@ package cz.muni.PV260.tron.model;
 
 public class Collision {
     private final Player player;
-    private final Player colidedWith;
+    private final Player collidedWith;
 
-    public Collision(Player player, Player colidedWith) {
+    public Collision(Player player, Player collidedWith) {
         this.player = player;
-        this.colidedWith = colidedWith;
+        this.collidedWith = collidedWith;
     }
 
     @Override
     public String toString() {
         return "Collision{" +
                 "player=" + player +
-                ", colidedWith=" + colidedWith +
+                ", collidedWith=" + collidedWith +
                 '}';
     }
 }

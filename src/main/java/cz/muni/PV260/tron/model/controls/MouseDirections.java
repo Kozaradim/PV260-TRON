@@ -6,8 +6,8 @@ import static cz.muni.PV260.tron.model.Direction.LEFT;
 import static cz.muni.PV260.tron.model.Direction.RIGHT;
 
 public class MouseDirections {
-    final int mouseLeft;
-    final int mouseRight;
+    private final int mouseLeft;
+    private final int mouseRight;
 
     public MouseDirections(int mouseLeft, int mouseRight) {
         this.mouseLeft = mouseLeft;

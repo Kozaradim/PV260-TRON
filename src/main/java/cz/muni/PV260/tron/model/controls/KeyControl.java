@@ -16,7 +16,7 @@ public class KeyControl implements Control, KeyListener {
         this.keyDirections = keyDirections;
     }
 
-    void turn(KeyEvent keyEvent) {
+    private void turn(KeyEvent keyEvent) {
         Direction newDirection = keyDirections.getDirection(keyEvent.getKeyCode());
         if (newDirection == null) return;
         direction = direction.turnToIfAllowed(newDirection);

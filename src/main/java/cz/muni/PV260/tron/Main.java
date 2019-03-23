@@ -1,7 +1,11 @@
 package cz.muni.PV260.tron;
 
-import cz.muni.PV260.tron.model.*;
 import cz.muni.PV260.tron.Presentation.TronGame;
+import cz.muni.PV260.tron.engine.ScreenManager;
+import cz.muni.PV260.tron.model.Direction;
+import cz.muni.PV260.tron.model.Player;
+import cz.muni.PV260.tron.model.Position;
+import cz.muni.PV260.tron.model.TronModel;
 import cz.muni.PV260.tron.model.controls.KeyControl;
 import cz.muni.PV260.tron.model.controls.KeyDirections;
 import cz.muni.PV260.tron.model.controls.MouseControl;
@@ -11,7 +15,7 @@ import java.awt.*;
 
 import static java.awt.event.KeyEvent.*;
 
-public class Main {
+class Main {
     public static void main(String[] args) {
         TronModel tronModel = new TronModel();
 
@@ -34,7 +38,9 @@ public class Main {
                 Color.BLUE);
         tronModel.addPlayer(player3);
 
-        TronGame tronGame = new TronGame(tronModel);
+        ScreenManager screenManager = new ScreenManager();
+
+        TronGame tronGame = new TronGame(tronModel, screenManager);
         tronGame.run();
     }
 }

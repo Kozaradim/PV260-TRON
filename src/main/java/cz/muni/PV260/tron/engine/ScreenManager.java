@@ -2,9 +2,8 @@ package cz.muni.PV260.tron.engine;
 
 import cz.muni.PV260.tron.model.Position;
 
+import javax.swing.*;
 import java.awt.*;
-
-import javax.swing.JFrame;
 
 public class ScreenManager {
 
@@ -20,7 +19,7 @@ public class ScreenManager {
                     new DisplayMode(640, 480, 24, 0),
                     new DisplayMode(640, 480, 16, 0),
             };
-    private GraphicsDevice graphicsDevice;
+    private final GraphicsDevice graphicsDevice;
     private Window window;
 
     public ScreenManager() {
@@ -28,20 +27,20 @@ public class ScreenManager {
         graphicsDevice = graphicsEnvironment.getDefaultScreenDevice();
     }
 
-    public DisplayMode findFirstCompatibaleMode(DisplayMode[] allowedDisplayModes) {
+    private DisplayMode findFirstCompatibleMode() {
 
         DisplayMode[] supportedModes = graphicsDevice.getDisplayModes();
-        for (int allowedModeIndex = 0; allowedModeIndex < allowedDisplayModes.length; allowedModeIndex++) {
-            for (int supportedModeIndex = 0; supportedModeIndex < supportedModes.length; supportedModeIndex++) {
-                if (displayModesMatch(allowedDisplayModes[allowedModeIndex], supportedModes[supportedModeIndex])) {
-                    return allowedDisplayModes[allowedModeIndex];
+        for (int allowedModeIndex = 0; allowedModeIndex < ScreenManager.modes.length; allowedModeIndex++) {
+            for (DisplayMode supportedMode : supportedModes) {
+                if (displayModesMatch(ScreenManager.modes[allowedModeIndex], supportedMode)) {
+                    return ScreenManager.modes[allowedModeIndex];
                 }
             }
         }
         return null;
     }
 
-    public boolean displayModesMatch(DisplayMode displayMode1, DisplayMode displayMode2) {
+    private boolean displayModesMatch(DisplayMode displayMode1, DisplayMode displayMode2) {
         if (displayMode1.getWidth() != displayMode2.getWidth()
                 || displayMode1.getHeight() != displayMode2.getHeight()) {
             return false;
@@ -56,7 +55,7 @@ public class ScreenManager {
                 || displayMode1.getRefreshRate() == displayMode2.getRefreshRate();
     }
 
-    public void setFullScreen(DisplayMode displayMode) {
+    private void setFullScreen(DisplayMode displayMode) {
         JFrame frame = new JFrame();
         frame.setUndecorated(true);
         frame.setIgnoreRepaint(true);
@@ -65,10 +64,7 @@ public class ScreenManager {
         graphicsDevice.setDisplayMode(displayMode);
 
         if (displayMode != null && graphicsDevice.isDisplayChangeSupported()) {
-            try {
-                graphicsDevice.setDisplayMode(displayMode);
-            } catch (Exception ex) {
-            }
+            graphicsDevice.setDisplayMode(displayMode);
             frame.createBufferStrategy(2);
         }
     }
@@ -77,8 +73,7 @@ public class ScreenManager {
         return (Graphics2D) window.getBufferStrategy().getDrawGraphics();
     }
 
-    public void update() {
-//        restoreScreen();
+    void update() {
         getGraphics().dispose();
         window.getBufferStrategy().show();
     }
@@ -87,7 +82,7 @@ public class ScreenManager {
         return graphicsDevice.getFullScreenWindow();
     }
 
-    public void restoreScreen() {
+    void restoreScreen() {
         Window window = graphicsDevice.getFullScreenWindow();
         if (window != null) {
             window.dispose();
@@ -101,7 +96,7 @@ public class ScreenManager {
     }
 
     void init() {
-        DisplayMode displayMode = findFirstCompatibaleMode(modes);
+        DisplayMode displayMode = findFirstCompatibleMode();
         setFullScreen(displayMode);
         window = getFullScreenWindow();
     }

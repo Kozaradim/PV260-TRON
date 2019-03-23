@@ -1,7 +1,5 @@
 package cz.muni.PV260.tron.model;
 
-import cz.muni.PV260.tron.Presentation.TronGame;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,18 +26,15 @@ public class TronModel {
         return gameBoard;
     }
 
-    public void evaluateCollision() {
-        List<Collision> collisions = collisionDetector.findAllCollisions(players);
-        if (!collisions.isEmpty())
-            System.exit(0);
-        addPositionToPath();
+    public List<Collision> evaluateCollision() {
+        return collisionDetector.findAllCollisions(players);
     }
 
     public void move() {
         players.forEach(player -> player.move(gameBoard));
     }
 
-    private void addPositionToPath() {
+    public void addPositionToPath() {
         players.forEach(Player::addPositionToPath);
     }
 

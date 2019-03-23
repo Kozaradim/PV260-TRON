@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class GameBoard {
     private final Position dimension;
-    private Color backgroundColor;
-    private int moveAmount;
+    private final Color backgroundColor;
+    private final int moveAmount;
 
     public GameBoard(Position dimension, Color backgroundColor, int moveAmount) {
         this.dimension = dimension;

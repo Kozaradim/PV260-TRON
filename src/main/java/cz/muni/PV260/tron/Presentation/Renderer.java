@@ -6,8 +6,8 @@ import cz.muni.PV260.tron.model.Player;
 import java.awt.*;
 import java.util.List;
 
-public class Renderer {
-    public static final int PIXEL_SIZE = 10;
+class Renderer {
+    private static final int PIXEL_SIZE = 10;
     private final Graphics2D graphics;
 
     public Renderer(Graphics2D graphics) {
@@ -20,7 +20,7 @@ public class Renderer {
         graphics.fillRect(0, 0, gameBoard.getDimension().getX(), gameBoard.getDimension().getY());
     }
 
-    void renderPlayer(Player player) {
+    private void renderPlayer(Player player) {
         graphics.setColor(player.getColor());
         player.getPath()
                 .forEach(position ->
@@ -28,6 +28,6 @@ public class Renderer {
     }
 
     void renderPlayers(List<Player> players) {
-        players.forEach(player -> renderPlayer(player));
+        players.forEach(this::renderPlayer);
     }
 }

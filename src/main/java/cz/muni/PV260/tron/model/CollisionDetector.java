@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class CollisionDetector {
+class CollisionDetector {
     public List<Collision> findAllCollisions(List<Player> players) {
         List<Collision> collisions = new ArrayList<>();
         players.stream()

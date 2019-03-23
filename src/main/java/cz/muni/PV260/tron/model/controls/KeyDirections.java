@@ -8,10 +8,10 @@ import java.util.Map;
 import static cz.muni.PV260.tron.model.Direction.*;
 
 public class KeyDirections {
-    final int keyUp;
-    final int keyDown;
-    final int keyLeft;
-    final int keyRight;
+    private final int keyUp;
+    private final int keyDown;
+    private final int keyLeft;
+    private final int keyRight;
     private final Map<Integer, Direction> directionMap = new HashMap<>();
 
     public KeyDirections(int keyUp, int keyDown, int keyLeft, int keyRight) {

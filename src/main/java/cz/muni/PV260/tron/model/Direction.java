@@ -7,21 +7,21 @@ public enum Direction {
     UP, DOWN, LEFT, RIGHT;
 
 
-    private static Map<Direction, Direction> forbiddenTurnMap = new HashMap<Direction, Direction>() {{
+    private static final Map<Direction, Direction> forbiddenTurnMap = new HashMap<Direction, Direction>() {{
         put(DOWN, UP);
         put(UP, DOWN);
         put(LEFT, RIGHT);
         put(RIGHT, LEFT);
     }};
 
-    private static Map<Direction, Direction> turnLeftMap = new HashMap<Direction, Direction>() {{
+    private static final Map<Direction, Direction> turnLeftMap = new HashMap<Direction, Direction>() {{
         put(DOWN, RIGHT);
         put(UP, LEFT);
         put(LEFT, DOWN);
         put(RIGHT, UP);
     }};
 
-    private static Map<Direction, Direction> turnRightMap = new HashMap<Direction, Direction>() {{
+    private static final Map<Direction, Direction> turnRightMap = new HashMap<Direction, Direction>() {{
         put(DOWN, LEFT);
         put(UP, RIGHT);
         put(LEFT, UP);

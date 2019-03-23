@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    final Control control;
+    private final Control control;
     private Position position;
-    private Color color;
-    private final List<Position> path = new ArrayList();
+    private final Color color;
+    private final List<Position> path = new ArrayList<>();
 
     public Player(Position position, Control control, Color color) {
         this.position = position;

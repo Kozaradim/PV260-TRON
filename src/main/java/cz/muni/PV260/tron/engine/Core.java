@@ -1,17 +1,15 @@
 package cz.muni.PV260.tron.engine;
 
-import java.awt.*;
-
 public abstract class Core {
 
-	private boolean running;
-    protected ScreenManager screenManager;
+	protected final ScreenManager screenManager;
+	protected boolean running;
 
-	public ScreenManager getScreenManager() {
-		return screenManager;
+	protected Core(ScreenManager screenManager) {
+		this.screenManager = screenManager;
 	}
 
-	public void run(){
+	public void run() {
 		try{
 			init();
 			gameLoop();
@@ -21,31 +19,25 @@ public abstract class Core {
 	}
 	
 	public void init(){
-        screenManager = new ScreenManager();
         screenManager.init();
 		running = true;
 	}
 
-    public void gameLoop(){
-		long startTime = System.currentTimeMillis();
-		long cumTime = startTime;
-		
+	private void gameLoop() {
 		while (running){
-			long timePassed = System.currentTimeMillis()-cumTime;
-			cumTime+= timePassed;
 			update();
             draw();
             screenManager.update();
 			
 			try{
 				Thread.sleep(20);
-			}catch(Exception ex){}
+			} catch (Exception ignored) {
+			}
 		}
 	}
 
-	public void update() {
-	}
+	protected abstract void update();
 
-    public abstract void draw();
+	protected abstract void draw();
 	
 }
