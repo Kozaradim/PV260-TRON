@@ -1,5 +1,7 @@
 package cz.muni.PV260.tron.model;
 
+import cz.muni.PV260.tron.engine.Direction;
+import cz.muni.PV260.tron.engine.Position;
 import cz.muni.PV260.tron.engine.Renderable;
 
 import java.awt.*;

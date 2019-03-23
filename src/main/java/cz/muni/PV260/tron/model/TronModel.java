@@ -1,5 +1,7 @@
 package cz.muni.PV260.tron.model;
 
+import cz.muni.PV260.tron.engine.CollisionDetector;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +9,12 @@ import java.util.List;
 public class TronModel {
 
     private final List<Player> players = new ArrayList<>();
-    private final CollisionDetector collisionDetector = new CollisionDetector();
+    public final CollisionDetector collisionDetector = new CollisionDetector();
     private GameBoard gameBoard;
 
     public void addPlayer(Player player) {
         this.players.add(player);
+        this.collisionDetector.addCollidable(player);
     }
 
     public List<Player> getPlayers() {
@@ -20,14 +23,6 @@ public class TronModel {
 
     public void setGameBoard(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
-    }
-
-    public GameBoard getGameBoard() {
-        return gameBoard;
-    }
-
-    public List<Collision> evaluateCollision() {
-        return collisionDetector.findAllCollisions(players);
     }
 
     public void move() {

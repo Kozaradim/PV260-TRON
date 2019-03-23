@@ -1,7 +1,5 @@
 package cz.muni.PV260.tron.engine;
 
-import cz.muni.PV260.tron.model.Position;
-
 import javax.swing.*;
 import java.awt.*;
 

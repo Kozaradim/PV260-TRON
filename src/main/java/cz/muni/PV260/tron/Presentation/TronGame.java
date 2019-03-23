@@ -2,7 +2,7 @@ package cz.muni.PV260.tron.Presentation;
 
 import cz.muni.PV260.tron.engine.Core;
 import cz.muni.PV260.tron.engine.ScreenManager;
-import cz.muni.PV260.tron.model.Collision;
+import cz.muni.PV260.tron.engine.Collision;
 import cz.muni.PV260.tron.model.GameBoard;
 import cz.muni.PV260.tron.model.TronModel;
 
@@ -39,7 +39,7 @@ public class TronGame extends Core {
     }
 
     private void handleCollisions() {
-        List<Collision> collisions = tronModel.evaluateCollision();
+        List<Collision> collisions = tronModel.collisionDetector.findAllCollisions();
         if (!collisions.isEmpty()) running = false;
     }
 

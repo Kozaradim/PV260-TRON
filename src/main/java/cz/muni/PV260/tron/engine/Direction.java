@@ -1,4 +1,4 @@
-package cz.muni.PV260.tron.model;
+package cz.muni.PV260.tron.engine;
 
 import java.util.HashMap;
 import java.util.Map;

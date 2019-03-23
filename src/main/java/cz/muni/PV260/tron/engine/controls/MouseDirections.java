@@ -1,9 +1,9 @@
-package cz.muni.PV260.tron.model.controls;
+package cz.muni.PV260.tron.engine.controls;
 
-import cz.muni.PV260.tron.model.Direction;
+import cz.muni.PV260.tron.engine.Direction;
 
-import static cz.muni.PV260.tron.model.Direction.LEFT;
-import static cz.muni.PV260.tron.model.Direction.RIGHT;
+import static cz.muni.PV260.tron.engine.Direction.LEFT;
+import static cz.muni.PV260.tron.engine.Direction.RIGHT;
 
 public class MouseDirections {
     private final int mouseLeft;

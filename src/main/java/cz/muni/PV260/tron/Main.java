@@ -2,14 +2,14 @@ package cz.muni.PV260.tron;
 
 import cz.muni.PV260.tron.Presentation.TronGame;
 import cz.muni.PV260.tron.engine.ScreenManager;
-import cz.muni.PV260.tron.model.Direction;
+import cz.muni.PV260.tron.engine.Direction;
 import cz.muni.PV260.tron.model.Player;
-import cz.muni.PV260.tron.model.Position;
+import cz.muni.PV260.tron.engine.Position;
 import cz.muni.PV260.tron.model.TronModel;
-import cz.muni.PV260.tron.model.controls.KeyControl;
-import cz.muni.PV260.tron.model.controls.KeyDirections;
-import cz.muni.PV260.tron.model.controls.MouseControl;
-import cz.muni.PV260.tron.model.controls.MouseDirections;
+import cz.muni.PV260.tron.engine.controls.KeyControl;
+import cz.muni.PV260.tron.engine.controls.KeyDirections;
+import cz.muni.PV260.tron.engine.controls.MouseControl;
+import cz.muni.PV260.tron.engine.controls.MouseDirections;
 
 import java.awt.*;
 

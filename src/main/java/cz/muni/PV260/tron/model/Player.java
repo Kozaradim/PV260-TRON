@@ -1,17 +1,19 @@
 package cz.muni.PV260.tron.model;
 
+import cz.muni.PV260.tron.engine.Collidable;
+import cz.muni.PV260.tron.engine.Collision;
+import cz.muni.PV260.tron.engine.Position;
 import cz.muni.PV260.tron.engine.Renderable;
-import cz.muni.PV260.tron.model.controls.Control;
+import cz.muni.PV260.tron.engine.Shape;
+import cz.muni.PV260.tron.engine.controls.Control;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Player implements Renderable {
+public class Player implements Renderable, Collidable {
     private final Control control;
     private Position position;
     private final Color color;
-    private final List<Position> path = new ArrayList<>();
+    private final cz.muni.PV260.tron.engine.Shape shape = new cz.muni.PV260.tron.engine.Shape();
     private static final int PIXEL_SIZE = 10;
 
 
@@ -19,7 +21,7 @@ public class Player implements Renderable {
         this.position = position;
         this.control = control;
         this.color = color;
-        this.path.add(position);
+        this.shape.add(position);
     }
 
     public Position getPosition() {
@@ -30,8 +32,9 @@ public class Player implements Renderable {
         return color;
     }
 
-    public List<Position> getPath() {
-        return path;
+    @Override
+    public Shape getShape() {
+        return shape;
     }
 
     public Control getControl() {
@@ -44,14 +47,22 @@ public class Player implements Renderable {
     }
 
     public void addPositionToPath() {
-        path.add(position);
+        shape.add(position);
     }
 
     @Override
     public void render(Graphics2D graphics) {
         graphics.setColor(getColor());
-        getPath()
+        getShape()
                 .forEach(position ->
                         graphics.fillRect(position.getX(), position.getY(), PIXEL_SIZE, PIXEL_SIZE));
     }
+
+    @Override
+    public Collision findCollision(Collidable otherPlayer) {
+        return otherPlayer.getShape().collides(getPosition())
+                ? new Collision(this, otherPlayer) : null;
+    }
 }
+
+
