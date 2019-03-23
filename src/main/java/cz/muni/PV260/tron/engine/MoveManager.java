@@ -15,6 +15,10 @@ public class MoveManager {
         movables.add(movable);
     }
 
+    public List<Movable> getMovables() {
+        return movables;
+    }
+
     public void move() {
         movables.forEach(Movable::move);
     }

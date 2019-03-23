@@ -35,6 +35,6 @@ public class TronModel {
 
     public void addListeners(Component window) {
 
-        getPlayers().forEach(player -> player.getControl().addListener(window));
+        moveManager.getMovables().forEach(player -> player.getControl().addListener(window));
     }
 }

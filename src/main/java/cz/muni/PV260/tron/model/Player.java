@@ -36,6 +36,7 @@ public class Player implements Renderable, Collidable, Movable {
         return shape;
     }
 
+    @Override
     public Control getControl() {
         return control;
     }
