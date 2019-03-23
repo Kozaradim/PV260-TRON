@@ -20,7 +20,6 @@ public abstract class Core {
 	}
 	
 	public void init(){
-        screenManager.init();
         renderer = new Renderer(screenManager.getGraphics());
 		running = true;
 	}

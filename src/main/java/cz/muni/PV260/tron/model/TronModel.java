@@ -1,6 +1,7 @@
 package cz.muni.PV260.tron.model;
 
 import cz.muni.PV260.tron.engine.CollisionDetector;
+import cz.muni.PV260.tron.engine.MoveManager;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,27 +11,26 @@ public class TronModel {
 
     private final List<Player> players = new ArrayList<>();
     public final CollisionDetector collisionDetector = new CollisionDetector();
-    private GameBoard gameBoard;
+    public final MoveManager moveManager;
+    private final GameBoard gameBoard;
+
+    public TronModel(GameBoard gameBoard) {
+        this.gameBoard = gameBoard;
+        this.moveManager = new MoveManager();
+    }
 
     public void addPlayer(Player player) {
         this.players.add(player);
         this.collisionDetector.addCollidable(player);
+        this.moveManager.addMovable(player);
     }
 
     public List<Player> getPlayers() {
         return players;
     }
 
-    public void setGameBoard(GameBoard gameBoard) {
-        this.gameBoard = gameBoard;
-    }
-
-    public void move() {
-        players.forEach(player -> player.move(gameBoard));
-    }
-
-    public void addPositionToPath() {
-        players.forEach(Player::addPositionToPath);
+    public GameBoard getGameBoard() {
+        return gameBoard;
     }
 
     public void addListeners(Component window) {

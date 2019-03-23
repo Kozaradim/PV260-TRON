@@ -21,10 +21,6 @@ public class GameBoard implements Renderable {
         return dimension;
     }
 
-    public Color getBackgroundColor() {
-        return backgroundColor;
-    }
-
     public Position move(Position position, Direction direction) {
         Position newPosition = position.move(direction, moveAmount);
         return fixPosition(newPosition);
@@ -42,7 +38,7 @@ public class GameBoard implements Renderable {
 
     @Override
     public void render(Graphics2D graphics) {
-        graphics.setColor(getBackgroundColor());
+        graphics.setColor(backgroundColor);
         graphics.fillRect(0, 0, getDimension().getX(), getDimension().getY());
     }
 }

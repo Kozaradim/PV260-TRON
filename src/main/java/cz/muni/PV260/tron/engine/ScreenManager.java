@@ -93,7 +93,7 @@ public class ScreenManager {
         return Position.of(window.getWidth(), window.getHeight());
     }
 
-    void init() {
+    public void init() {
         DisplayMode displayMode = findFirstCompatibleMode();
         setFullScreen(displayMode);
         window = getFullScreenWindow();

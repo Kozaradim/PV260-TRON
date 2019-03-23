@@ -1,26 +1,25 @@
 package cz.muni.PV260.tron.model;
 
-import cz.muni.PV260.tron.engine.Collidable;
-import cz.muni.PV260.tron.engine.Collision;
-import cz.muni.PV260.tron.engine.Position;
-import cz.muni.PV260.tron.engine.Renderable;
 import cz.muni.PV260.tron.engine.Shape;
+import cz.muni.PV260.tron.engine.*;
 import cz.muni.PV260.tron.engine.controls.Control;
 
 import java.awt.*;
 
-public class Player implements Renderable, Collidable {
+public class Player implements Renderable, Collidable, Movable {
     private final Control control;
     private Position position;
     private final Color color;
-    private final cz.muni.PV260.tron.engine.Shape shape = new cz.muni.PV260.tron.engine.Shape();
+    private final Shape shape = new Shape();
+    private final GameBoard gameBoard;
     private static final int PIXEL_SIZE = 10;
 
 
-    public Player(Position position, Control control, Color color) {
+    public Player(Position position, Control control, Color color, GameBoard gameBoard) {
         this.position = position;
         this.control = control;
         this.color = color;
+        this.gameBoard = gameBoard;
         this.shape.add(position);
     }
 
@@ -41,12 +40,14 @@ public class Player implements Renderable, Collidable {
         return control;
     }
 
-    public void move(GameBoard gameBoard) {
+    @Override
+    public void move() {
 
         position = gameBoard.move(position, control.getDirection());
     }
 
-    public void addPositionToPath() {
+    @Override
+    public void updatePosition() {
         shape.add(position);
     }
 
