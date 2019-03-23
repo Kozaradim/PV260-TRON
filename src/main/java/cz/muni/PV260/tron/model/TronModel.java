@@ -12,9 +12,9 @@ public class TronModel {
     private final List<Player> players = new ArrayList<>();
     public final CollisionDetector collisionDetector = new CollisionDetector();
     public final MoveManager moveManager;
-    private final GameBoard gameBoard;
+    private final TronGameBoard gameBoard;
 
-    public TronModel(GameBoard gameBoard) {
+    public TronModel(TronGameBoard gameBoard) {
         this.gameBoard = gameBoard;
         this.moveManager = new MoveManager();
     }
@@ -29,7 +29,7 @@ public class TronModel {
         return players;
     }
 
-    public GameBoard getGameBoard() {
+    public TronGameBoard getGameBoard() {
         return gameBoard;
     }
 

@@ -1,26 +1,29 @@
 package cz.muni.PV260.tron.model;
 
 import cz.muni.PV260.tron.engine.Direction;
+import cz.muni.PV260.tron.engine.GameBoard;
 import cz.muni.PV260.tron.engine.Position;
 import cz.muni.PV260.tron.engine.Renderable;
 
 import java.awt.*;
 
-public class GameBoard implements Renderable {
+public class TronGameBoard implements Renderable, GameBoard {
     private final Position dimension;
     private final Color backgroundColor;
     private final int moveAmount;
 
-    public GameBoard(Position dimension, Color backgroundColor, int moveAmount) {
+    public TronGameBoard(Position dimension, Color backgroundColor, int moveAmount) {
         this.dimension = dimension;
         this.backgroundColor = backgroundColor;
         this.moveAmount = moveAmount;
     }
 
+    @Override
     public Position getDimension() {
         return dimension;
     }
 
+    @Override
     public Position move(Position position, Direction direction) {
         Position newPosition = position.move(direction, moveAmount);
         return fixPosition(newPosition);

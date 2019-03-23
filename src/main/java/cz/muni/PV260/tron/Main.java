@@ -8,8 +8,8 @@ import cz.muni.PV260.tron.engine.controls.KeyControl;
 import cz.muni.PV260.tron.engine.controls.KeyDirections;
 import cz.muni.PV260.tron.engine.controls.MouseControl;
 import cz.muni.PV260.tron.engine.controls.MouseDirections;
-import cz.muni.PV260.tron.model.GameBoard;
 import cz.muni.PV260.tron.model.Player;
+import cz.muni.PV260.tron.model.TronGameBoard;
 import cz.muni.PV260.tron.model.TronModel;
 
 import java.awt.*;
@@ -25,7 +25,7 @@ class Main {
         ScreenManager screenManager = new ScreenManager();
         screenManager.init();
 
-        GameBoard gameBoard = new GameBoard(screenManager.getScreenSize(), BACKGROUND_COLOR, MOVE_AMOUNT);
+        TronGameBoard gameBoard = new TronGameBoard(screenManager.getScreenSize(), BACKGROUND_COLOR, MOVE_AMOUNT);
 
         TronModel tronModel = new TronModel(gameBoard);
 
