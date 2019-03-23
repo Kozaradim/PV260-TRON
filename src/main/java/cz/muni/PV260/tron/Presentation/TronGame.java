@@ -13,7 +13,6 @@ public class TronGame extends Core {
 
     private final static int MOVE_AMOUNT = 5;
 
-    private Renderer renderer;
     private final TronModel tronModel;
 
     public TronGame(TronModel tronModel, ScreenManager screenManager) {
@@ -27,8 +26,8 @@ public class TronGame extends Core {
         GameBoard gameBoard = new GameBoard(screenManager.getScreenSize(), Color.BLACK, MOVE_AMOUNT);
         tronModel.setGameBoard(gameBoard);
         tronModel.addListeners(screenManager.getFullScreenWindow());
-        renderer = new Renderer(screenManager.getGraphics());
-
+        renderer.addRenderable(gameBoard);
+        tronModel.getPlayers().forEach(player -> renderer.addRenderable(player));
     }
 
     @Override
@@ -42,12 +41,6 @@ public class TronGame extends Core {
     private void handleCollisions() {
         List<Collision> collisions = tronModel.evaluateCollision();
         if (!collisions.isEmpty()) running = false;
-    }
-
-    @Override
-    public void draw() {
-        renderer.renderGameBoard(tronModel.getGameBoard());
-        renderer.renderPlayers(tronModel.getPlayers());
     }
 
 }

@@ -1,16 +1,19 @@
 package cz.muni.PV260.tron.model;
 
+import cz.muni.PV260.tron.engine.Renderable;
 import cz.muni.PV260.tron.model.controls.Control;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player implements Renderable {
     private final Control control;
     private Position position;
     private final Color color;
     private final List<Position> path = new ArrayList<>();
+    private static final int PIXEL_SIZE = 10;
+
 
     public Player(Position position, Control control, Color color) {
         this.position = position;
@@ -42,5 +45,13 @@ public class Player {
 
     public void addPositionToPath() {
         path.add(position);
+    }
+
+    @Override
+    public void render(Graphics2D graphics) {
+        graphics.setColor(getColor());
+        getPath()
+                .forEach(position ->
+                        graphics.fillRect(position.getX(), position.getY(), PIXEL_SIZE, PIXEL_SIZE));
     }
 }

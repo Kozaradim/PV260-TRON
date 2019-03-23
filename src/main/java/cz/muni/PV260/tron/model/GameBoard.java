@@ -1,8 +1,10 @@
 package cz.muni.PV260.tron.model;
 
+import cz.muni.PV260.tron.engine.Renderable;
+
 import java.awt.*;
 
-public class GameBoard {
+public class GameBoard implements Renderable {
     private final Position dimension;
     private final Color backgroundColor;
     private final int moveAmount;
@@ -36,4 +38,9 @@ public class GameBoard {
         return Position.of(x, y);
     }
 
+    @Override
+    public void render(Graphics2D graphics) {
+        graphics.setColor(getBackgroundColor());
+        graphics.fillRect(0, 0, getDimension().getX(), getDimension().getY());
+    }
 }
