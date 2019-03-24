@@ -20,8 +20,6 @@ public class TronGame extends Core {
     public void init() {
         super.init();
         tronModel.addListeners(screenManager.getFullScreenWindow());
-        renderer.addRenderable(tronModel.getGameBoard());
-        tronModel.getPlayers().forEach(player -> renderer.addRenderable(player));
     }
 
     @Override
@@ -37,4 +35,8 @@ public class TronGame extends Core {
         if (!collisions.isEmpty()) running = false;
     }
 
+    @Override
+    protected void draw() {
+        tronModel.renderer.renderAll();
+    }
 }

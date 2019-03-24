@@ -4,7 +4,6 @@ public abstract class Core {
 
 	protected final ScreenManager screenManager;
 	protected boolean running;
-    protected Renderer renderer;
 
 	protected Core(ScreenManager screenManager) {
 		this.screenManager = screenManager;
@@ -20,7 +19,6 @@ public abstract class Core {
 	}
 	
 	public void init(){
-        renderer = new Renderer(screenManager.getGraphics());
 		running = true;
 	}
 
@@ -39,8 +37,6 @@ public abstract class Core {
 
 	protected abstract void update();
 
-    public void draw() {
-        renderer.renderAll();
-    }
+    protected abstract void draw();
 	
 }

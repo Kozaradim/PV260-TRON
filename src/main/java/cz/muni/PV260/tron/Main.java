@@ -1,9 +1,7 @@
 package cz.muni.PV260.tron;
 
 import cz.muni.PV260.tron.Presentation.TronGame;
-import cz.muni.PV260.tron.engine.Direction;
-import cz.muni.PV260.tron.engine.Position;
-import cz.muni.PV260.tron.engine.ScreenManager;
+import cz.muni.PV260.tron.engine.*;
 import cz.muni.PV260.tron.engine.controls.KeyControl;
 import cz.muni.PV260.tron.engine.controls.KeyDirections;
 import cz.muni.PV260.tron.engine.controls.MouseControl;
@@ -25,9 +23,12 @@ class Main {
         ScreenManager screenManager = new ScreenManager();
         screenManager.init();
 
+        CollisionDetector collisionDetector = new CollisionDetector();
+        Renderer renderer = new Renderer(screenManager.getGraphics());
+
         TronGameBoard gameBoard = new TronGameBoard(screenManager.getScreenSize(), BACKGROUND_COLOR, MOVE_AMOUNT);
 
-        TronModel tronModel = new TronModel(gameBoard);
+        TronModel tronModel = new TronModel(collisionDetector, renderer, gameBoard);
 
         Player player1 = new Player(Position.of(40, 40),
                 new KeyControl(
